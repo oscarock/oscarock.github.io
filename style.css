@@ -1,0 +1,38 @@
+body{
+	margin: 100px !important;
+}
+
+input{
+	margin: 70px !important;
+}
+
+.error-text{
+	position: absolute;
+    top: 120px;
+    left: 300px;
+    display: none;
+}
+
+.center-input{
+	margin: 0 auto;	
+}
+
+.tabla-content{
+    margin: 0 auto;
+}
+
+#Mymodal{
+	background-color: rgba(86, 85, 86, 0.99);
+}
+
+.text-modal{
+	margin: 250px auto;
+	font-size: 120px;
+    color: white;
+}
+
+.btn-modal{
+	position: absolute;
+	top: 420px;
+	left: 750px;
+}
