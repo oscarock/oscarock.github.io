@@ -11,8 +11,8 @@ function View(){}
 
 Controller.prototype.run = function(){
 	var controller = this,
-			number_load = controller.model.number_rand().toString().split("")
-
+			number_load_random = controller.model.number_rand()
+			number_load = controller.load_number(number_load_random)
 	$("form").on("submit", function(e){
 		var input = $("#number").val(),
 				number_input = $("#number").val().split("")
@@ -28,7 +28,7 @@ Controller.prototype.run = function(){
 		}else if(input.length < 4){
 			controller.view.add_class_error()
 	  	controller.view.message_error_validation("No puedes ingresar menos de 4 numeros.")	
-		}else if(input.match(/^(.)\1+$/g)){
+		}else if(!input.match(/^(?:([0-9])(?!.*\1)){4}$/)){
 			controller.view.add_class_error()
 	  	controller.view.message_error_validation("No puedes repetir numeros.")	
 		}else if(input.length === 4){
@@ -37,6 +37,15 @@ Controller.prototype.run = function(){
 			controller.compare_number(number_load,number_input)
 		}
 	})
+}
+
+Controller.prototype.load_number = function(number){
+	var number_load = ""
+	number.forEach(function(element) {
+		number_load += element
+	});
+	console.log(number_load)
+	return number_load
 }
 
 
@@ -71,9 +80,14 @@ Controller.prototype.compare_number = function(number_load,number_input){
 }
 
 Model.prototype.number_rand = function(){
-	var number =  Math.floor(1000 + Math.random() * 9000)
-	console.log(number)
-	return number
+	numbers_base = [0,1,2,3,4,5,6,7,8,9]
+  array = []
+  for (i=1; i<=4; i++) {
+    number_random = Math.floor(Math.random() * (numbers_base.length-1) +1)
+    array.push(numbers_base[number_random])
+    numbers_base.splice(number_random, 1)
+  }
+  return array
 }
 
 View.prototype.hide_text_error = function(){
@@ -109,4 +123,3 @@ View.prototype.game_reset = function(){
 
 var play = new Controller(new Model(), new View())
 play.run()
-
